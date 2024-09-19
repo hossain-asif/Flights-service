@@ -6,7 +6,7 @@ const { Airplane } = require('../models');
 
 
 class AirplaneRepository extends CrudRepository{
-    constructor(Airplane){
+    constructor(){
         super(Airplane);
     }
 }

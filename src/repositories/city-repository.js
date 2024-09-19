@@ -4,7 +4,7 @@ const CrudRepository = require('./crud-repository');
 const { City } = require('../models');
 
 class CityRepository extends CrudRepository{
-    constructor(City){
+    constructor(){
         super(City);
     }
 }
