@@ -60,7 +60,60 @@ async function getAllFlights(req, res){
 }
 
 
+
+async function getFlight(req, res){
+    try{    
+        let flight = await FlightService.getFlight(req.params.id);
+        SuccessResponse.message = 'Successfully retrieved requested flight.';
+        SuccessResponse.data = flight;
+
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+
+    }catch(error){
+        
+        ErrorResponse.message = 'Something went wrong while retrieving flight.';
+        ErrorResponse.error = error;
+
+        return res
+                .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(ErrorResponse);
+
+    }
+}
+
+
+async function updateSeats(req, res){
+    try{    
+        let flight = await FlightService.updateSeats({
+            flightId: req.params.id,
+            seats: req.body.seats,
+            dec: req.body.dec
+        });
+        SuccessResponse.message = 'Successfully updated seats.';
+        SuccessResponse.data = flight;
+
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+
+    }catch(error){
+        
+        ErrorResponse.message = 'Something went wrong while updating flight: seats.';
+        ErrorResponse.error = error;
+
+        return res
+                .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(ErrorResponse);
+
+    }
+}
+
+
 module.exports = {
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight,
+    updateSeats
 }
